@@ -11,3 +11,8 @@ django-admin startproject watchmate
 cd watchmate
 python manage.py startapp watchlist_app
 ```
+4. run the server
+```
+python manage.py runserver
+```
+- grab the ip from the terminal, e.g. `http://127.0.0.1:8000/` and visit it in the browser.
