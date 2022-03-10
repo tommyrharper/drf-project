@@ -24,3 +24,4 @@ python manage.py createsuperuser
 - password: password
 - go to admin panel: `http://127.0.0.1:8000/admin`
 4. Create `urls.py` inside `watchlist_app`.
+5. create model `Movie` in `models.py`
