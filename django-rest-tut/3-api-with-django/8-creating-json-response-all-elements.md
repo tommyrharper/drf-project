@@ -9,3 +9,5 @@ urlpatterns = [
 ]
 ```
 3. add urls to `watchlist_app/urls.py`
+4. return `JsonResponse` from `movie_list` function in `views.py`
+- note `JsonResponse` requires a dictionary as an argument.
