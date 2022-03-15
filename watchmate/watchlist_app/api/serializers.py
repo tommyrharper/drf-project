@@ -2,10 +2,14 @@ from rest_framework import serializers
 
 from watchlist_app.models import Movie
 
+# validator
+def name_length(value):
+    if len(value) < 3:
+        raise serializers.ValidationError('Name must be at least 3 characters long')
 
 class MovieSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
-    name = serializers.CharField()
+    name = serializers.CharField(validators=[name_length])
     description = serializers.CharField()
     active = serializers.BooleanField()
 
@@ -20,14 +24,16 @@ class MovieSerializer(serializers.Serializer):
         instance.save()
         return instance
 
+    # object level validator
     def validate(self, data):
         if data['name'] == data['description']:
             raise serializers.ValidationError('Title and Description must be different')
         else:
             return data
 
-    def validate_name(self, value):
-        if len(value) < 3:
-            raise serializers.ValidationError("Name must be at least 3 characters long")
-        else:
-            return value
+    ## field level validator
+    # def validate_name(self, value):
+    #     if len(value) < 3:
+    #         raise serializers.ValidationError("Name must be at least 3 characters long")
+    #     else:
+    #         return value
