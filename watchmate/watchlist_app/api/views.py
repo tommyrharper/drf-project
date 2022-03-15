@@ -19,7 +19,7 @@ class MovieListAV(APIView):
             serializer.save()
             return Response(serializer.data)
         else:
-            return Response(serializer.data)
+            return Response(serializer.errors)
 
 
 class MovieDetailAV(APIView):
