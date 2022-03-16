@@ -1,6 +1,12 @@
 from django.urls import path
+
 # from watchlist_app.api.views import movie_list, movie_details
-from watchlist_app.api.views import MovieListAV, MovieDetailAV
+from watchlist_app.api.views import (
+    WatchListAV,
+    WatchListDetailAV,
+    StreamPlatformAV,
+    StreamPlatformDetailAV,
+)
 
 ## method based urls
 # urlpatterns = [
@@ -9,6 +15,8 @@ from watchlist_app.api.views import MovieListAV, MovieDetailAV
 # ]
 
 urlpatterns = [
-    path("list/", MovieListAV.as_view(), name="movie-list"),
-    path("<int:pk>/", MovieDetailAV.as_view(), name="movie-detail"),
+    path("list/", WatchListAV.as_view(), name="movie-list"),
+    path("<int:pk>/", WatchListDetailAV.as_view(), name="movie-detail"),
+    path("platform/list", StreamPlatformAV.as_view(), name="movie-list"),
+    path("platoform/<int:pk>/", StreamPlatformDetailAV.as_view(), name="movie-detail"),
 ]
