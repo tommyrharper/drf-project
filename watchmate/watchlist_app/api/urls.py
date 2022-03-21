@@ -17,6 +17,6 @@ from watchlist_app.api.views import (
 urlpatterns = [
     path("list/", WatchListAV.as_view(), name="movie-list"),
     path("<int:pk>/", WatchListDetailAV.as_view(), name="movie-detail"),
-    path("platform/list/", StreamPlatformAV.as_view(), name="platform-list"),
-    path("platform/<int:pk>/", StreamPlatformDetailAV.as_view(), name="platform-detail"),
+    path("stream/", StreamPlatformAV.as_view(), name="platform-list"),
+    path("stream/<int:pk>/", StreamPlatformDetailAV.as_view(), name="platform-detail"),
 ]
