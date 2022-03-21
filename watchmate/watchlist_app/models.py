@@ -2,7 +2,7 @@ from django.db import models
 
 
 class StreamPlatform(models.Model):
-    names = models.CharField(max_length=30)
+    name = models.CharField(max_length=30)
     about = models.CharField(max_length=150)
     website = models.URLField(max_length=100)
 
