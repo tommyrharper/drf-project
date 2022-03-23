@@ -2,6 +2,7 @@ from rest_framework import serializers
 
 from watchlist_app.models import WatchList, StreamPlatform
 
+
 class WatchListSerializer(serializers.ModelSerializer):
     len_name = serializers.SerializerMethodField()
 
@@ -16,23 +17,28 @@ class WatchListSerializer(serializers.ModelSerializer):
 
     # object level validator
     def validate(self, data):
-        if data['title'] == data['storyline']:
-            raise serializers.ValidationError('Title and storyline must be different')
+        if data["title"] == data["storyline"]:
+            raise serializers.ValidationError("Title and storyline must be different")
         else:
             return data
 
     # field level validator
     def validate_title(self, value):
         if len(value) < 3:
-            raise serializers.ValidationError("Title must be at least 3 characters long")
+            raise serializers.ValidationError(
+                "Title must be at least 3 characters long"
+            )
         else:
             return value
 
 
 class StreamPlatformSerializer(serializers.ModelSerializer):
+    watchlist = WatchListSerializer(many=True, read_only=True)
+
     class Meta:
         model = StreamPlatform
         fields = "__all__"
+
 
 # # validator
 # def name_length(value):
