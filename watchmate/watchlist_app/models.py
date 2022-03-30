@@ -32,9 +32,9 @@ class Review(models.Model):
     active = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    movie = models.ForeignKey(
+    watchlist = models.ForeignKey(
         WatchList, on_delete=models.CASCADE, related_name="reviews"
     )
 
     def __str__(self):
-        return str(self.rating)
+        return str(self.rating) + " | " + self.watchlist.title
