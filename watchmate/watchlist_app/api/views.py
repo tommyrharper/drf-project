@@ -9,18 +9,34 @@ from watchlist_app.api.serializers import (
 # from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 from rest_framework import status
+
 # from rest_framework import mixins
 from rest_framework import generics
 
 
-class ReviewList(generics.ListCreateAPIView):
-    queryset = Review.objects.all()
+class ReviewCreate(generics.CreateAPIView):
+    # queryset = Review.objects.all()
     serializer_class = ReviewSerializer
+
+    def perform_create(self, serializer):
+        pk = self.kwargs["pk"]
+        movie = WatchList.objects.get(pk=pk)
+        serializer.save(watchlist=movie)
+
+
+class ReviewList(generics.ListAPIView):
+    # queryset = Review.objects.all()
+    serializer_class = ReviewSerializer
+
+    def get_queryset(self):
+        pk = self.kwargs["pk"]
+        return Review.objects.filter(watchlist=pk)
 
 
 class ReviewDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
+
 
 # class ReviewDetail(mixins.RetrieveModelMixin, generics.GenericAPIView):
 #     queryset = Review.objects.all()
@@ -66,7 +82,7 @@ class StreamPlatformDetailAV(APIView):
             platform = StreamPlatform.objects.get(pk=pk)
         except StreamPlatform.DoesNotExist:
             return Response(
-                {"error": "Platfor not found"}, status=status.HTTP_404_NOT_FOUND
+                {"error": "Platform not found"}, status=status.HTTP_404_NOT_FOUND
             )
 
         serializer = StreamPlatformSerializer(platform, context={"request": request})
